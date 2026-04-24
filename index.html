@@ -1,832 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Coffee Codex</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --espresso: #1a0a00;
-      --roast: #3b1c08;
-      --caramel: #c47a2b;
-      --cream: #f5e6cc;
-      --foam: #fdf6ec;
-      --ink: #0d0d0d;
-      --rust: #8b3a0f;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background-color: var(--espresso);
-      color: var(--cream);
-      font-family: 'Courier Prime', monospace;
-      overflow-x: hidden;
-    }
-
-    /* ── Grain overlay ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.35;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 4rem 2rem;
-      overflow: hidden;
-    }
-
-    .hero-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(196,122,43,0.15);
-      animation: expand 8s ease-out infinite;
-    }
-    .hero-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
-    .hero-ring:nth-child(2) { width: 500px; height: 500px; animation-delay: 1.5s; }
-    .hero-ring:nth-child(3) { width: 700px; height: 700px; animation-delay: 3s; }
-    .hero-ring:nth-child(4) { width: 900px; height: 900px; animation-delay: 4.5s; }
-
-    @keyframes expand {
-      0%   { opacity: 0; transform: scale(0.6); }
-      30%  { opacity: 1; }
-      100% { opacity: 0; transform: scale(1.2); }
-    }
-
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--caramel);
-      margin-bottom: 1.5rem;
-      animation: fadeUp 1s ease both;
-    }
-
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 9rem);
-      line-height: 0.9;
-      text-align: center;
-      color: var(--cream);
-      animation: fadeUp 1s 0.2s ease both;
-    }
-
-    .hero-title em {
-      display: block;
-      font-style: italic;
-      color: var(--caramel);
-    }
-
-    .hero-subtitle {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
-      color: rgba(245,230,204,0.5);
-      text-align: center;
-      max-width: 34ch;
-      line-height: 1.8;
-      animation: fadeUp 1s 0.4s ease both;
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--caramel);
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      animation: fadeUp 1s 0.8s ease both;
-    }
-
-    .hero-scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--caramel), transparent);
-      animation: drip 2s ease-in-out infinite;
-    }
-
-    @keyframes drip {
-      0%, 100% { transform: scaleY(1) translateY(0); opacity: 1; }
-      50%       { transform: scaleY(1.4) translateY(6px); opacity: 0.5; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 3rem;
-      background: linear-gradient(to bottom, rgba(26,10,0,0.9), transparent);
-      backdrop-filter: blur(4px);
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--caramel);
-      letter-spacing: 0.05em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: rgba(245,230,204,0.6);
-      text-decoration: none;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover { color: var(--caramel); }
-
-    /* ── SECTION WRAPPER ── */
-    .section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 8rem 2rem;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
-
-    .section-number {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      color: var(--caramel);
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1.1;
-    }
-
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(196,122,43,0.4), transparent);
-      margin-left: 1rem;
-    }
-
-    /* ── RECIPE GRID ── */
-    .recipe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2px;
-    }
-
-    .recipe-card {
-      background: var(--roast);
-      padding: 2.5rem;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.4s;
-      border: 1px solid rgba(196,122,43,0.08);
-    }
-
-    .recipe-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(196,122,43,0.07), transparent);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .recipe-card:hover { background: #4a2410; }
-    .recipe-card:hover::before { opacity: 1; }
-
-    .recipe-card:hover .recipe-arrow { transform: translateX(6px); opacity: 1; }
-
-    .recipe-tag {
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--caramel);
-      margin-bottom: 1rem;
-    }
-
-    .recipe-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 0.75rem;
-      color: var(--cream);
-    }
-
-    .recipe-desc {
-      font-size: 0.82rem;
-      line-height: 1.7;
-      color: rgba(245,230,204,0.55);
-      margin-bottom: 2rem;
-    }
-
-    .recipe-meta {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.7rem;
-      color: rgba(245,230,204,0.4);
-      letter-spacing: 0.05em;
-    }
-
-    .recipe-meta span { display: flex; align-items: center; gap: 0.4rem; }
-
-    .recipe-arrow {
-      position: absolute;
-      top: 2.5rem; right: 2.5rem;
-      font-size: 1.2rem;
-      color: var(--caramel);
-      opacity: 0;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-
-    /* ── MODAL ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10,4,0,0.92);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s;
-    }
-
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal {
-      background: var(--roast);
-      border: 1px solid rgba(196,122,43,0.2);
-      max-width: 680px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 3.5rem;
-      position: relative;
-      transform: translateY(30px);
-      transition: transform 0.4s;
-    }
-
-    .modal-overlay.open .modal { transform: translateY(0); }
-
-    .modal-close {
-      position: absolute;
-      top: 1.5rem; right: 2rem;
-      background: none;
-      border: none;
-      color: rgba(245,230,204,0.4);
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.2s;
-      font-family: 'Courier Prime', monospace;
-    }
-
-    .modal-close:hover { color: var(--caramel); }
-
-    .modal-tag {
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--caramel);
-      margin-bottom: 0.75rem;
-    }
-
-    .modal-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--cream);
-    }
-
-    .modal-desc {
-      font-size: 0.85rem;
-      line-height: 1.75;
-      color: rgba(245,230,204,0.6);
-      margin-bottom: 2.5rem;
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(196,122,43,0.15);
-    }
-
-    .modal-section-title {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--caramel);
-      margin-bottom: 1rem;
-    }
-
-    .modal-ingredients {
-      list-style: none;
-      margin-bottom: 2.5rem;
-    }
-
-    .modal-ingredients li {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.6rem 0;
-      border-bottom: 1px dashed rgba(196,122,43,0.12);
-      font-size: 0.85rem;
-      color: var(--cream);
-    }
-
-    .modal-ingredients li span {
-      color: rgba(245,230,204,0.4);
-      font-size: 0.78rem;
-    }
-
-    .modal-steps {
-      list-style: none;
-      counter-reset: steps;
-    }
-
-    .modal-steps li {
-      counter-increment: steps;
-      display: flex;
-      gap: 1.25rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: rgba(245,230,204,0.75);
-    }
-
-    .modal-steps li::before {
-      content: counter(steps, decimal-leading-zero);
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      color: rgba(196,122,43,0.35);
-      flex-shrink: 0;
-      line-height: 1.2;
-    }
-
-    .modal-tip {
-      margin-top: 2.5rem;
-      padding: 1.5rem;
-      background: rgba(196,122,43,0.07);
-      border-left: 2px solid var(--caramel);
-      font-size: 0.8rem;
-      line-height: 1.7;
-      color: rgba(245,230,204,0.5);
-      font-style: italic;
-    }
-
-    /* ── STRIP / MARQUEE ── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid rgba(196,122,43,0.15);
-      border-bottom: 1px solid rgba(196,122,43,0.15);
-      padding: 1rem 0;
-      background: var(--roast);
-    }
-
-    .marquee-track {
-      display: flex;
-      width: max-content;
-      animation: scroll 30s linear infinite;
-      gap: 0;
-    }
-
-    .marquee-item {
-      white-space: nowrap;
-      padding: 0 3rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(196,122,43,0.5);
-    }
-
-    .marquee-item span { color: var(--caramel); margin-right: 3rem; }
-
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ── TIPS SECTION ── */
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .tip-card {
-      padding: 2rem;
-      border: 1px solid rgba(196,122,43,0.12);
-      position: relative;
-    }
-
-    .tip-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .tip-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      margin-bottom: 0.75rem;
-      color: var(--cream);
-    }
-
-    .tip-body {
-      font-size: 0.8rem;
-      line-height: 1.75;
-      color: rgba(245,230,204,0.5);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid rgba(196,122,43,0.15);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: var(--caramel);
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-note {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: rgba(245,230,204,0.25);
-    }
-
-    /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--espresso); }
-    ::-webkit-scrollbar-thumb { background: var(--caramel); border-radius: 2px; }
-
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { display: none; }
-      .modal { padding: 2rem 1.5rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Picks</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #fff8f0 0%, #fef3e8 50%, #fdf6ef 100%);
+  color: #4a4a4a;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+}
+
+h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 50%, #ffb74d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+header p {
+  color: #888;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.filters {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 0 1rem;
+}
+
+.filters button {
+  margin: 6px;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  background: white;
+  color: #666;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+}
+
+.filters button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
+  color: #ff6b6b;
+}
+
+.filters button.active {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  padding: 1rem 3rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  padding: 1.2rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(255, 107, 107, 0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0 0 0.3rem;
+  color: #333;
+}
+
+.card .description {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.5;
+  margin: 0 0 0.5rem;
+}
+
+.card .category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ff6b6b;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+  color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.hero-section {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.hero-card {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  box-shadow: 0 8px 30px rgba(255, 107, 107, 0.2);
+}
+
+.hero-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent 100%);
+}
+
+.hero-label {
+  display: inline-block;
+  background: #ff6b6b;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.hero-content h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+
+.hero-content p {
+  color: #666;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 2.5rem; }
+  .grid { padding: 1rem; gap: 1.2rem; }
+  .filters button { padding: 0.5rem 1rem; font-size: 0.8rem; }
+  .hero-card img { height: 200px; }
+  .hero-content h2 { font-size: 1.5rem; }
+}
+  .grid { padding: 1rem; }
+  .filters button { padding: 0.6rem 1rem; font-size: 0.8rem; }
+  .hero-card img { height: 200px; }
+  .hero-content h2 { font-size: 1.5rem; }
+}
+
+.hero-section {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.hero-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #252019 0%, #1a1612 100%);
+  border: 1px solid #2d2822;
+}
+
+.hero-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(26, 22, 18, 0.95) 0%, transparent 100%);
+}
+
+.hero-label {
+  display: inline-block;
+  background: #d4a574;
+  color: #1a1612;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.hero-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+  color: #f5f0eb;
+}
+
+.hero-content p {
+  color: #a09890;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+</style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">☕ The Coffee Codex</div>
-  <ul class="nav-links">
-    <li><a href="#recipes">Recipes</a></li>
-    <li><a href="#tips">Tips</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-ring"></div>
-  <div class="hero-ring"></div>
-  <div class="hero-ring"></div>
-  <div class="hero-ring"></div>
-  <p class="hero-eyebrow">A brewer's companion</p>
-  <h1 class="hero-title">The Coffee<em>Codex</em></h1>
-  <p class="hero-subtitle">Artisan recipes, brewing wisdom, and the quiet ritual of a perfect cup.</p>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    scroll
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" id="marqueeTrack"></div>
-</div>
-
-<!-- RECIPES -->
-<section id="recipes">
-  <div class="section">
-    <div class="section-header">
-      <span class="section-number">01 —</span>
-      <h2 class="section-title">Recipes</h2>
-      <div class="section-rule"></div>
+<header>
+  <h1>Smart Picks</h1>
+  <p>Useful products you’ll actually use</p>
+</header>
+<div class="hero-section">
+  <div class="hero-card">
+    <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&h=400&fit=crop" alt="Lighting Deals">
+    <div class="hero-content">
+      <span class="hero-label">Limited Time Deal</span>
+      <h2>Lighting Deals</h2>
+      <p>Beautiful lighting solutions to brighten up your space.</p>
+      <a href="https://amzn.to/4d3HT84" class="btn" target="_blank" rel="noopener">Shop Now</a>
     </div>
-    <div class="recipe-grid" id="recipeGrid"></div>
-  </div>
-</section>
-
-<!-- TIPS -->
-<section id="tips" style="background: var(--roast);">
-  <div class="section">
-    <div class="section-header">
-      <span class="section-number">02 —</span>
-      <h2 class="section-title">Brewer's Notes</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="tips-grid">
-      <div class="tip-card">
-        <div class="tip-icon">⚖️</div>
-        <h3 class="tip-title">Grind Fresh</h3>
-        <p class="tip-body">Grind beans no more than 30 minutes before brewing. Ground coffee loses 60% of its aromatics within 15 minutes of exposure to air.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-icon">🌡️</div>
-        <h3 class="tip-title">Water Temperature</h3>
-        <p class="tip-body">Ideal brewing temperature is 90–96 °C (195–205 °F). Boiling water scorches the grounds; too cool and you'll under-extract, leaving it sour and weak.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-icon">💧</div>
-        <h3 class="tip-title">Water Quality</h3>
-        <p class="tip-body">Filtered water with a TDS of 75–150 ppm is optimal. Tap water with chlorine masks subtle flavours; distilled water produces flat, lifeless coffee.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-icon">⏱️</div>
-        <h3 class="tip-title">Extraction Time</h3>
-        <p class="tip-body">Espresso: 25–30 seconds. Pour-over: 3–4 minutes. French press: 4 minutes. Timing is the difference between a balanced cup and a bitter or sour one.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-icon">🫙</div>
-        <h3 class="tip-title">Storage</h3>
-        <p class="tip-body">Store whole beans in an airtight, opaque container at room temperature. Avoid the fridge — moisture and odour absorption ruin flavour profiles.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-icon">🔢</div>
-        <h3 class="tip-title">The Golden Ratio</h3>
-        <p class="tip-body">Start with 1 gram of coffee per 15 grams of water and adjust to taste. Precision scales are a brewer's most valuable tool after the grinder.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">The Coffee Codex</div>
-  <p class="footer-note">Crafted with care · Brewed with intention</p>
-</footer>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modal">
-    <button class="modal-close" id="modalClose">✕</button>
-    <p class="modal-tag" id="modalTag"></p>
-    <h2 class="modal-title" id="modalTitle"></h2>
-    <p class="modal-desc" id="modalDesc"></p>
-    <p class="modal-section-title">Ingredients</p>
-    <ul class="modal-ingredients" id="modalIngredients"></ul>
-    <p class="modal-section-title">Method</p>
-    <ol class="modal-steps" id="modalSteps"></ol>
-    <div class="modal-tip" id="modalTip"></div>
   </div>
 </div>
+<div class="filters">
+  <button onclick="filter('all')" class="active">All</button>
+  <button onclick="filter('kitchen')">Kitchen</button>
+  <button onclick="filter('desk')">Electronics</button>
+  <button onclick="filter('home')">Home</button>
+  <button onclick="filter('beauty')">Beauty</button>
+</div>
+
+<div class="grid" id="products"></div>
 
 <script>
-const recipes = [
+const items = [
   {
-  tag: "Moka Pot · Iced",
-  name: "Iced Mocha",
-  desc: "Bold moka pot coffee meets chocolate and milk — a café-style iced mocha with a deep, indulgent body.",
-  time: "5 min",
-  difficulty: "Easy",
-  servings: "1 glass",
-  ingredients: [
-    { name: "Moka pot brewed coffee", amount: "60 ml" },
-    { name: "Milk", amount: "120 ml" },
-    { name: "Cocoa powder or chocolate syrup", amount: "1 tbsp" },
-    { name: "Ice cubes", amount: "1 cup" },
-    { name: "Sugar (optional)", amount: "to taste" },
-  ],
-  steps: [
-    "Brew a strong moka pot coffee and let it cool slightly.",
-    "In a glass, mix cocoa powder (or syrup) with a splash of warm coffee to dissolve.",
-    "Add ice cubes to the glass.",
-    "Pour in the remaining coffee and milk.",
-    "Stir well and adjust sweetness if needed.",
-  ],
-  tip: "Barista note: Use dark chocolate for a richer, less sugary mocha — it balances the moka pot’s intensity beautifully."
-},
+    category: "kitchen",
+    name: "Coffee Cups & Mugs",
+    description: "Premium ceramic mugs and coffee cups for your daily brew.",
+    img: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=300&fit=crop",
+    link: "https://amzn.to/42xsYgd",
+  },
+  {
+    category: "desk",
+    name: "Electronics",
+    description: "Latest gadgets and accessories to boost your productivity.",
+    img: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&h=300&fit=crop",
+    link: "https://amzn.to/41ORUjc",
+  },
+  {
+    category: "home",
+    name: "Furniture & Mattress",
+    description: "Comfortable furniture and quality mattresses for better living.",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop",
+    link: "https://amzn.to/4u7Dc2W",
+  },
+  {
+    category: "beauty",
+    name: "Sunscreens",
+    description: "Protect your skin with top-rated sunscreens for all skin types.",
+    img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=300&fit=crop",
+    link: "https://amzn.to/4sRknQs",
+  },
+  {
+    category: "home",
+    name: "Air Conditioners",
+    description: "Stay cool with energy-efficient ACs for every room.",
+    img: "https://images.unsplash.com/photo-1630699144867-37acec97df5a?w=400&h=300&fit=crop",
+    link: "https://amzn.to/4cLrunm",
+  },
+];
 
-{
-  tag: "Moka Pot · Creamy",
-  name: "Vanilla Latte",
-  desc: "A smooth and comforting latte made without an espresso machine — mellow, creamy, and lightly sweet.",
-  time: "6 min",
-  difficulty: "Easy",
-  servings: "1 cup",
-  ingredients: [
-    { name: "Moka pot brewed coffee", amount: "50 ml" },
-    { name: "Milk", amount: "150 ml" },
-    { name: "Vanilla extract", amount: "¼ tsp" },
-    { name: "Sugar or honey", amount: "to taste" },
-  ],
-  steps: [
-    "Heat milk gently until warm (do not boil).",
-    "Add vanilla extract and sweetener to the milk.",
-    "Brew fresh moka pot coffee.",
-    "Pour coffee into a cup, then add the warm milk.",
-    "Stir gently and serve.",
-  ],
-  tip: "Barista note: Froth the milk using a jar or whisk to get a café-style texture without a machine."
-},
-
-{
-  tag: "Cold Brew · Refreshing",
-  name: "Cold Brew Tonic",
-  desc: "A bright, sparkling drink where smooth cold brew meets citrusy tonic — crisp, modern, and surprisingly addictive.",
-  time: "3 min",
-  difficulty: "Easy",
-  servings: "1 glass",
-  ingredients: [
-    { name: "Cold brew concentrate", amount: "60 ml" },
-    { name: "Tonic water", amount: "120 ml" },
-    { name: "Ice cubes", amount: "1 cup" },
-    { name: "Orange slice", amount: "1 piece" },
-  ],
-  steps: [
-    "Fill a glass with ice cubes.",
-    "Pour tonic water over the ice.",
-    "Slowly add cold brew on top to create a layered effect.",
-    "Garnish with an orange slice.",
-    "Stir lightly before drinking.",
-  ],
-  tip: "Barista note: Pour coffee slowly over the back of a spoon to keep that beautiful layered look."
-},
-
-{
-  tag: "Cold Brew · Indulgent",
-  name: "Cold Brew Float",
-  desc: "A dessert in a glass — velvety cold brew topped with melting vanilla ice cream.",
-  time: "2 min",
-  difficulty: "Easy",
-  servings: "1 glass",
-  ingredients: [
-    { name: "Cold brew", amount: "150 ml" },
-    { name: "Vanilla ice cream", amount: "1 scoop" },
-    { name: "Ice cubes (optional)", amount: "½ cup" },
-  ],
-  steps: [
-    "Pour cold brew into a tall glass.",
-    "Add ice if desired.",
-    "Place a scoop of vanilla ice cream on top.",
-    "Serve immediately as it begins to melt.",
-  ],
-  tip: "Barista note: Add a pinch of sea salt on top for a salted caramel-like twist."
-},
-
-{
-  tag: "Instant · Whipped",
-  name: "Dalgona Coffee",
-  desc: "Cloud-like whipped coffee over milk — bold, creamy, and visually irresistible.",
-  time: "5 min",
-  difficulty: "Easy",
-  servings: "1 glass",
-  ingredients: [
-    { name: "Instant coffee", amount: "2 tbsp" },
-    { name: "Sugar", amount: "2 tbsp" },
-    { name: "Hot water", amount: "2 tbsp" },
-    { name: "Milk", amount: "150 ml" },
-    { name: "Ice cubes", amount: "1 cup" },
-  ],
-  steps: [
-    "Combine instant coffee, sugar, and hot water in a bowl.",
-    "Whisk vigorously until thick, creamy, and fluffy.",
-    "Fill a glass with ice and milk.",
-    "Spoon the whipped coffee on top.",
-    "Mix before drinking.",
-  ],
-  tip: "Barista note: Use an electric whisk for faster, fluffier results."
-},
-
-{
-  tag: "Instant · Iced",
-  name: "Iced Caramel Coffee",
-  desc: "A quick café-style iced coffee with sweet caramel notes — perfect for busy mornings.",
-  time: "3 min",
-  difficulty: "Easy",
-  servings: "1 glass",
-  ingredients: [
-    { name: "Instant coffee", amount: "1 tsp" },
-    { name: "Hot water", amount: "2 tbsp" },
-    { name: "Milk", amount: "150 ml" },
-    { name: "Caramel syrup", amount: "1 tbsp" },
-    { name: "Ice cubes", amount: "1 cup" },
-  ],
-  steps: [
-    "Dissolve instant coffee in hot water.",
-    "Add caramel syrup and mix.",
-    "Fill a glass with ice and milk.",
-    "Pour coffee mixture over it.",
-    "Stir and serve.",
-  ],
-  tip: "Barista note: Drizzle caramel along the glass walls for that aesthetic café look."
-}];
-
-const marqueeItems = ["Espresso", "Pour-Over", "Cold Brew", "Aeropress", "French Press", "Moka Pot", "Siphon", "Chemex", "V60", "Clever Dripper"];
-
-// Build marquee
-const track = document.getElementById('marqueeTrack');
-const full = [...marqueeItems, ...marqueeItems];
-track.innerHTML = full.map(i => `<span class="marquee-item"><span>✦</span>${i}</span>`).join('');
-
-// Build recipe grid
-const grid = document.getElementById('recipeGrid');
-recipes.forEach((r, i) => {
-  const card = document.createElement('div');
-  card.className = 'recipe-card';
-  card.innerHTML = `
-    <p class="recipe-tag">${r.tag}</p>
-    <h3 class="recipe-name">${r.name}</h3>
-    <p class="recipe-desc">${r.desc}</p>
-    <div class="recipe-meta">
-      <span>⏱ ${r.time}</span>
-      <span>◈ ${r.difficulty}</span>
-      <span>⌀ ${r.servings}</span>
+function render(list) {
+  const container = document.getElementById("products");
+  container.innerHTML = list.map(item => `
+    <div class="card">
+      <img src="${item.img}">
+      <span class="category">${item.category}</span>
+      <h3>${item.name}</h3>
+      <p class="description">${item.description}</p>
+      <a href="${item.link}" class="btn" target="_blank" rel="noopener">View on Amazon</a>
     </div>
-    <span class="recipe-arrow">→</span>
-  `;
-  card.addEventListener('click', () => openModal(i));
-  grid.appendChild(card);
-});
-
-// Modal
-const overlay = document.getElementById('modalOverlay');
-const modalClose = document.getElementById('modalClose');
-
-function openModal(i) {
-  const r = recipes[i];
-  document.getElementById('modalTag').textContent = r.tag;
-  document.getElementById('modalTitle').textContent = r.name;
-  document.getElementById('modalDesc').textContent = r.desc;
-  document.getElementById('modalIngredients').innerHTML = r.ingredients
-    .map(ing => `<li>${ing.name}<span>${ing.amount}</span></li>`).join('');
-  document.getElementById('modalSteps').innerHTML = r.steps
-    .map(s => `<li>${s}</li>`).join('');
-  document.getElementById('modalTip').textContent = r.tip;
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  `).join('');
 }
 
-function closeModal() {
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
+function filter(category) {
+  document.querySelectorAll('.filters button').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  if (category === 'all') render(items);
+  else render(items.filter(i => i.category === category));
 }
 
-modalClose.addEventListener('click', closeModal);
-overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.recipe-card, .tip-card').forEach((el, i) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = `opacity 0.6s ${i * 0.07}s ease, transform 0.6s ${i * 0.07}s ease`;
-  observer.observe(el);
-});
+render(items);
 </script>
+
 </body>
 </html>

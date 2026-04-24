@@ -619,133 +619,50 @@
 <script>
 const recipes = [
   {
-    tag: "Espresso · Classic",
-    name: "Classic Espresso",
-    desc: "The foundation of all espresso drinks. A concentrated, velvety shot with crema that whispers of chocolate and stone fruit.",
-    time: "5 min",
-    difficulty: "Medium",
-    servings: "1 shot",
-    ingredients: [
-      { name: "Finely ground espresso beans", amount: "18 g" },
-      { name: "Filtered water", amount: "36 ml" },
-      { name: "Water temperature", amount: "93 °C" },
-    ],
-    steps: [
-      "Preheat your espresso machine and portafilter for at least 15 minutes.",
-      "Grind 18 g of beans to a fine, slightly finer than table salt consistency.",
-      "Distribute grounds evenly in the portafilter and tamp with firm, level pressure (about 15 kg).",
-      "Lock the portafilter and begin extraction immediately.",
-      "Pull a 36 ml shot in 25–30 seconds. The flow should start as drops, then become a thin ribbon.",
-      "Serve immediately in a pre-warmed demitasse cup.",
-    ],
-    tip: "Barista note: If the shot pulls too fast (< 20 s), grind finer. Too slow (> 35 s), grind coarser. Small adjustments make a big difference."
-  },
-  {
-    tag: "Pour-Over · Delicate",
-    name: "Chemex Pour-Over",
-    desc: "A ceremonial, slow-brewed cup prized for its clarity and brightness. The thick bonded filters trap all oils, yielding a clean, tea-like body.",
-    time: "8 min",
-    difficulty: "Medium",
-    servings: "2 cups",
-    ingredients: [
-      { name: "Medium-coarse ground coffee", amount: "42 g" },
-      { name: "Filtered water (just off boil)", amount: "700 ml" },
-    ],
-    steps: [
-      "Fold and place a Chemex paper filter in the vessel, rinse with hot water, then discard the rinse water.",
-      "Add 42 g of medium-coarse ground coffee to the filter.",
-      "Begin the bloom: pour 84 ml of water (2× the coffee weight) evenly over the grounds. Wait 45 seconds.",
-      "Continue pouring in slow, concentric circles, keeping the water level consistent. Aim to finish pouring by 3:30.",
-      "Allow the last of the water to drain through completely (~4 min total).",
-      "Remove and dispose of the filter. Gently swirl the Chemex before serving.",
-    ],
-    tip: "Barista note: The bloom releases CO₂ trapped in fresh coffee. A vigorous bloom means your beans are fresh — a good sign."
-  },
-  {
-    tag: "Cold Brew · Smooth",
-    name: "Cold Brew Concentrate",
-    desc: "Steeped low and slow for 18 hours, cold brew delivers a remarkably smooth, chocolatey concentrate with almost no bitterness.",
-    time: "18 hrs",
-    difficulty: "Easy",
-    servings: "6 cups",
-    ingredients: [
-      { name: "Coarsely ground coffee", amount: "150 g" },
-      { name: "Cold filtered water", amount: "700 ml" },
-    ],
-    steps: [
-      "Combine coarsely ground coffee and cold water in a large jar or pitcher. Stir to ensure all grounds are saturated.",
-      "Cover loosely and steep at room temperature for 12–18 hours (longer = stronger).",
-      "Strain through a fine-mesh sieve lined with a paper filter or cheesecloth. This may take 15–20 minutes.",
-      "Transfer the concentrate to a sealed jar. It keeps refrigerated for up to 2 weeks.",
-      "To serve, dilute 1:1 with cold water or milk over ice. Adjust ratio to taste.",
-    ],
-    tip: "Barista note: Cold brew concentrate is extremely versatile — use it as a base for coffee cocktails, add to smoothies, or pour over vanilla ice cream."
-  },
-  {
-    tag: "Milk · Indulgent",
-    name: "Flat White",
-    desc: "An Australian ritual — a double ristretto nestled in velvety microfoam. Smaller than a latte, more intense, with every sip a perfect balance.",
-    time: "7 min",
-    difficulty: "Hard",
-    servings: "1 cup",
-    ingredients: [
-      { name: "Ristretto (short espresso)", amount: "40 ml" },
-      { name: "Whole milk", amount: "120 ml" },
-    ],
-    steps: [
-      "Pull a double ristretto (15–20 ml per shot) using 18–20 g of coffee. The ristretto should be syrupy and sweet.",
-      "Steam 120 ml of cold whole milk. Submerge the steam wand just below the surface to incorporate air for the first 3 seconds, then drop it deeper to heat and texturise.",
-      "Target temperature: 60–65 °C (140–150 °F). The milk should look like liquid satin — glossy with no visible bubbles.",
-      "Tap and swirl the milk jug firmly on the counter to burst any large bubbles.",
-      "Pour from a low height in a steady stream, using a slight side-to-side motion to create latte art if desired.",
-    ],
-    tip: "Barista note: The flat white's magic lives in the 3:1 ratio of milk to espresso — any more milk and you have a latte; any less and it becomes a macchiato."
-  },
-  {
-    tag: "Iced · Refreshing",
-    name: "Japanese Iced Coffee",
-    desc: "Brewed hot directly over ice, this method captures the aromatic volatiles lost in cold brew while delivering a bright, complex chilled cup.",
-    time: "6 min",
-    difficulty: "Easy",
-    servings: "1 cup",
-    ingredients: [
-      { name: "Medium-fine ground coffee", amount: "22 g" },
-      { name: "Hot water (93 °C)", amount: "180 ml" },
-      { name: "Ice cubes", amount: "120 g" },
-    ],
-    steps: [
-      "Place 120 g of ice directly in your serving vessel or in a pour-over carafe.",
-      "Set a dripper and filter on top. Rinse the filter, add 22 g of coffee.",
-      "Bloom with 44 ml of hot water for 30 seconds.",
-      "Pour the remaining 136 ml in a steady spiral over the next 2 minutes.",
-      "As the hot coffee drips, it immediately chills on the ice, locking in volatile aromatics.",
-      "Once all water has drained, serve immediately over additional ice if desired.",
-    ],
-    tip: "Barista note: Use brighter, lighter roasts for this method — their citrus and floral notes sing especially beautifully when chilled."
-  },
-  {
-    tag: "Spiced · Ceremonial",
-    name: "Turkish Coffee",
-    desc: "An ancient, unfiltered tradition served with grounds in the cup. Rich, foamy, and deeply aromatic — best sipped slowly, preferably with good company.",
-    time: "10 min",
-    difficulty: "Medium",
-    servings: "2 cups",
-    ingredients: [
-      { name: "Extra-finely ground Turkish coffee", amount: "2 heaped tsp" },
-      { name: "Cold water", amount: "200 ml" },
-      { name: "Sugar (optional)", amount: "1–2 tsp" },
-      { name: "Ground cardamom", amount: "¼ tsp" },
-    ],
-    steps: [
-      "Combine cold water, coffee, sugar (if using), and cardamom in a cezve (small copper or brass pot).",
-      "Stir once to combine. Do not stir again once you begin heating.",
-      "Heat over low flame. As the coffee warms, a dark foam will rise — when it nears the rim, remove from heat.",
-      "Spoon some of the foam into each cup. Return the cezve to the heat until it rises again, then pour.",
-      "Allow grounds to settle for 2 minutes before drinking.",
-    ],
-    tip: "Barista note: Traditionally, Turkish coffee is served with a glass of water to cleanse the palate first. The grounds left in the cup were once used to tell fortunes."
-  },
-];
+  tag: "Stovetop · Bold",
+  name: "Moka Pot Coffee",
+  desc: "A rich, intense brew that sits between espresso and filter coffee. Deep, slightly smoky, and perfect for a strong morning ritual.",
+  time: "7 min",
+  difficulty: "Medium",
+  servings: "2 cups",
+  ingredients: [
+    { name: "Medium-fine ground coffee", amount: "18 g" },
+    { name: "Hot water", amount: "150 ml" },
+  ],
+  steps: [
+    "Fill the bottom chamber with hot water just below the safety valve.",
+    "Add coffee to the filter basket without tamping — level it gently.",
+    "Assemble the moka pot and place on low-medium heat.",
+    "Leave the lid open and watch as coffee begins to flow.",
+    "Once the flow turns light and bubbly, remove from heat immediately.",
+    "Stir the brewed coffee in the top chamber before serving.",
+  ],
+  tip: "Barista note: Using pre-heated water reduces bitterness and prevents the coffee from overheating during extraction."
+},
+
+{
+  tag: "Quick · Everyday",
+  name: "Perfect Instant Coffee",
+  desc: "Simple, fast, and surprisingly good when done right. Smooth, balanced, and customizable for your daily caffeine fix.",
+  time: "2 min",
+  difficulty: "Easy",
+  servings: "1 cup",
+  ingredients: [
+    { name: "Instant coffee powder", amount: "1–2 tsp" },
+    { name: "Hot water", amount: "180 ml" },
+    { name: "Milk (optional)", amount: "to taste" },
+    { name: "Sugar (optional)", amount: "to taste" },
+  ],
+  steps: [
+    "Add instant coffee powder to your cup.",
+    "Pour a small amount of hot water (2–3 tbsp) and stir to dissolve fully.",
+    "Add remaining hot water and mix well.",
+    "Add milk and sugar if desired.",
+    "Stir gently and serve immediately.",
+  ],
+  tip: "Barista note: Blooming instant coffee with a little water first enhances its aroma and reduces that harsh, powdery taste."
+}
+  ];
 
 const marqueeItems = ["Espresso", "Pour-Over", "Cold Brew", "Aeropress", "French Press", "Moka Pot", "Siphon", "Chemex", "V60", "Clever Dripper"];
 

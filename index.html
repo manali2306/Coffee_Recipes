@@ -619,50 +619,143 @@
 <script>
 const recipes = [
   {
-  tag: "Stovetop · Bold",
-  name: "Moka Pot Coffee",
-  desc: "A rich, intense brew that sits between espresso and filter coffee. Deep, slightly smoky, and perfect for a strong morning ritual.",
-  time: "7 min",
-  difficulty: "Medium",
-  servings: "2 cups",
-  ingredients: [
-    { name: "Medium-fine ground coffee", amount: "18 g" },
-    { name: "Hot water", amount: "150 ml" },
-  ],
-  steps: [
-    "Fill the bottom chamber with hot water just below the safety valve.",
-    "Add coffee to the filter basket without tamping — level it gently.",
-    "Assemble the moka pot and place on low-medium heat.",
-    "Leave the lid open and watch as coffee begins to flow.",
-    "Once the flow turns light and bubbly, remove from heat immediately.",
-    "Stir the brewed coffee in the top chamber before serving.",
-  ],
-  tip: "Barista note: Using pre-heated water reduces bitterness and prevents the coffee from overheating during extraction."
-},
-
-{
-  tag: "Quick · Everyday",
-  name: "Perfect Instant Coffee",
-  desc: "Simple, fast, and surprisingly good when done right. Smooth, balanced, and customizable for your daily caffeine fix.",
-  time: "2 min",
+  tag: "Moka Pot · Iced",
+  name: "Iced Mocha",
+  desc: "Bold moka pot coffee meets chocolate and milk — a café-style iced mocha with a deep, indulgent body.",
+  time: "5 min",
   difficulty: "Easy",
-  servings: "1 cup",
+  servings: "1 glass",
   ingredients: [
-    { name: "Instant coffee powder", amount: "1–2 tsp" },
-    { name: "Hot water", amount: "180 ml" },
-    { name: "Milk (optional)", amount: "to taste" },
+    { name: "Moka pot brewed coffee", amount: "60 ml" },
+    { name: "Milk", amount: "120 ml" },
+    { name: "Cocoa powder or chocolate syrup", amount: "1 tbsp" },
+    { name: "Ice cubes", amount: "1 cup" },
     { name: "Sugar (optional)", amount: "to taste" },
   ],
   steps: [
-    "Add instant coffee powder to your cup.",
-    "Pour a small amount of hot water (2–3 tbsp) and stir to dissolve fully.",
-    "Add remaining hot water and mix well.",
-    "Add milk and sugar if desired.",
-    "Stir gently and serve immediately.",
+    "Brew a strong moka pot coffee and let it cool slightly.",
+    "In a glass, mix cocoa powder (or syrup) with a splash of warm coffee to dissolve.",
+    "Add ice cubes to the glass.",
+    "Pour in the remaining coffee and milk.",
+    "Stir well and adjust sweetness if needed.",
   ],
-  tip: "Barista note: Blooming instant coffee with a little water first enhances its aroma and reduces that harsh, powdery taste."
-}
-  ];
+  tip: "Barista note: Use dark chocolate for a richer, less sugary mocha — it balances the moka pot’s intensity beautifully."
+},
+
+{
+  tag: "Moka Pot · Creamy",
+  name: "Vanilla Latte",
+  desc: "A smooth and comforting latte made without an espresso machine — mellow, creamy, and lightly sweet.",
+  time: "6 min",
+  difficulty: "Easy",
+  servings: "1 cup",
+  ingredients: [
+    { name: "Moka pot brewed coffee", amount: "50 ml" },
+    { name: "Milk", amount: "150 ml" },
+    { name: "Vanilla extract", amount: "¼ tsp" },
+    { name: "Sugar or honey", amount: "to taste" },
+  ],
+  steps: [
+    "Heat milk gently until warm (do not boil).",
+    "Add vanilla extract and sweetener to the milk.",
+    "Brew fresh moka pot coffee.",
+    "Pour coffee into a cup, then add the warm milk.",
+    "Stir gently and serve.",
+  ],
+  tip: "Barista note: Froth the milk using a jar or whisk to get a café-style texture without a machine."
+},
+
+{
+  tag: "Cold Brew · Refreshing",
+  name: "Cold Brew Tonic",
+  desc: "A bright, sparkling drink where smooth cold brew meets citrusy tonic — crisp, modern, and surprisingly addictive.",
+  time: "3 min",
+  difficulty: "Easy",
+  servings: "1 glass",
+  ingredients: [
+    { name: "Cold brew concentrate", amount: "60 ml" },
+    { name: "Tonic water", amount: "120 ml" },
+    { name: "Ice cubes", amount: "1 cup" },
+    { name: "Orange slice", amount: "1 piece" },
+  ],
+  steps: [
+    "Fill a glass with ice cubes.",
+    "Pour tonic water over the ice.",
+    "Slowly add cold brew on top to create a layered effect.",
+    "Garnish with an orange slice.",
+    "Stir lightly before drinking.",
+  ],
+  tip: "Barista note: Pour coffee slowly over the back of a spoon to keep that beautiful layered look."
+},
+
+{
+  tag: "Cold Brew · Indulgent",
+  name: "Cold Brew Float",
+  desc: "A dessert in a glass — velvety cold brew topped with melting vanilla ice cream.",
+  time: "2 min",
+  difficulty: "Easy",
+  servings: "1 glass",
+  ingredients: [
+    { name: "Cold brew", amount: "150 ml" },
+    { name: "Vanilla ice cream", amount: "1 scoop" },
+    { name: "Ice cubes (optional)", amount: "½ cup" },
+  ],
+  steps: [
+    "Pour cold brew into a tall glass.",
+    "Add ice if desired.",
+    "Place a scoop of vanilla ice cream on top.",
+    "Serve immediately as it begins to melt.",
+  ],
+  tip: "Barista note: Add a pinch of sea salt on top for a salted caramel-like twist."
+},
+
+{
+  tag: "Instant · Whipped",
+  name: "Dalgona Coffee",
+  desc: "Cloud-like whipped coffee over milk — bold, creamy, and visually irresistible.",
+  time: "5 min",
+  difficulty: "Easy",
+  servings: "1 glass",
+  ingredients: [
+    { name: "Instant coffee", amount: "2 tbsp" },
+    { name: "Sugar", amount: "2 tbsp" },
+    { name: "Hot water", amount: "2 tbsp" },
+    { name: "Milk", amount: "150 ml" },
+    { name: "Ice cubes", amount: "1 cup" },
+  ],
+  steps: [
+    "Combine instant coffee, sugar, and hot water in a bowl.",
+    "Whisk vigorously until thick, creamy, and fluffy.",
+    "Fill a glass with ice and milk.",
+    "Spoon the whipped coffee on top.",
+    "Mix before drinking.",
+  ],
+  tip: "Barista note: Use an electric whisk for faster, fluffier results."
+},
+
+{
+  tag: "Instant · Iced",
+  name: "Iced Caramel Coffee",
+  desc: "A quick café-style iced coffee with sweet caramel notes — perfect for busy mornings.",
+  time: "3 min",
+  difficulty: "Easy",
+  servings: "1 glass",
+  ingredients: [
+    { name: "Instant coffee", amount: "1 tsp" },
+    { name: "Hot water", amount: "2 tbsp" },
+    { name: "Milk", amount: "150 ml" },
+    { name: "Caramel syrup", amount: "1 tbsp" },
+    { name: "Ice cubes", amount: "1 cup" },
+  ],
+  steps: [
+    "Dissolve instant coffee in hot water.",
+    "Add caramel syrup and mix.",
+    "Fill a glass with ice and milk.",
+    "Pour coffee mixture over it.",
+    "Stir and serve.",
+  ],
+  tip: "Barista note: Drizzle caramel along the glass walls for that aesthetic café look."
+}];
 
 const marqueeItems = ["Espresso", "Pour-Over", "Cold Brew", "Aeropress", "French Press", "Moka Pot", "Siphon", "Chemex", "V60", "Clever Dripper"];
 

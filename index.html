@@ -1,0 +1,838 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;The Coffee Codex&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--espresso: #1a0a00;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--roast: #3b1c08;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--caramel: #c47a2b;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--cream: #f5e6cc;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--foam: #fdf6ec;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--ink: #0d0d0d;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--rust: #8b3a0f;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>html { scroll-behavior: smooth; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background-color: var(--espresso);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Courier Prime', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── Grain overlay ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body::before {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>inset: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>z-index: 1000;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0.35;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── HERO ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 4rem 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-ring {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(196,122,43,0.15);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: expand 8s ease-out infinite;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-ring:nth-child(2) { width: 500px; height: 500px; animation-delay: 1.5s; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-ring:nth-child(3) { width: 700px; height: 700px; animation-delay: 3s; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-ring:nth-child(4) { width: 900px; height: 900px; animation-delay: 4.5s; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes expand {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>0% <span class="Apple-converted-space">  </span>{ opacity: 0; transform: scale(0.6); }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>30%<span class="Apple-converted-space">  </span>{ opacity: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>100% { opacity: 0; transform: scale(1.2); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-eyebrow {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.4em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: fadeUp 1s ease both;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(3.5rem, 10vw, 9rem);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 0.9;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: fadeUp 1s 0.2s ease both;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-title em {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-style: italic;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-subtitle {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.15em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 34ch;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.8;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: fadeUp 1s 0.4s ease both;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-scroll {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>bottom: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>left: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transform: translateX(-50%);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.65rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.3em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: fadeUp 1s 0.8s ease both;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero-scroll-line {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 1px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>height: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(to bottom, var(--caramel), transparent);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: drip 2s ease-in-out infinite;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes drip {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>0%, 100% { transform: scaleY(1) translateY(0); opacity: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>50% <span class="Apple-converted-space">      </span>{ transform: scaleY(1.4) translateY(6px); opacity: 0.5; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes fadeUp {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>from { opacity: 0; transform: translateY(24px); }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>to <span class="Apple-converted-space">  </span>{ opacity: 1; transform: translateY(0); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── NAV ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>nav {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>top: 0; left: 0; right: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>z-index: 100;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 1.25rem 3rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(to bottom, rgba(26,10,0,0.9), transparent);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(4px);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.nav-logo {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.1rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.05em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.nav-links {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.nav-links a {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.6);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.25em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: color 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.nav-links a:hover { color: var(--caramel); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── SECTION WRAPPER ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 1200px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 8rem 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-header {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 4rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-number {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.65rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.3em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(2rem, 5vw, 3.5rem);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-rule {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>height: 1px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(to right, rgba(196,122,43,0.4), transparent);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-left: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── RECIPE GRID ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-grid {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--roast);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: background 0.4s;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(196,122,43,0.08);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-card::before {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>inset: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, rgba(196,122,43,0.07), transparent);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: opacity 0.4s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-card:hover { background: #4a2410; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-card:hover::before { opacity: 1; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-card:hover .recipe-arrow { transform: translateX(6px); opacity: 1; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-tag {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.6rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.35em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-name {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-desc {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.82rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.55);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-meta {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.05em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-meta span { display: flex; align-items: center; gap: 0.4rem; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recipe-arrow {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>top: 2.5rem; right: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.3s, opacity 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── MODAL ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-overlay {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>inset: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(10,4,0,0.92);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>z-index: 200;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: opacity 0.4s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-overlay.open {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pointer-events: all;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--roast);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(196,122,43,0.2);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 680px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-height: 85vh;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow-y: auto;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 3.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(30px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.4s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-overlay.open .modal { transform: translateY(0); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-close {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>top: 1.5rem; right: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: color 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Courier Prime', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-close:hover { color: var(--caramel); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-tag {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.6rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.35em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-desc {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.6);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(196,122,43,0.15);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-section-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.65rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.3em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-ingredients {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-ingredients li {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.6rem 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px dashed rgba(196,122,43,0.12);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-ingredients li span {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.78rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-steps {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>counter-reset: steps;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-steps li {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>counter-increment: steps;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.75);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-steps li::before {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>content: counter(steps, decimal-leading-zero);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.4rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(196,122,43,0.35);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-shrink: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-tip {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 2.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(196,122,43,0.07);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-left: 2px solid var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-style: italic;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── STRIP / MARQUEE ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.marquee-wrap {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid rgba(196,122,43,0.15);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(196,122,43,0.15);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 1rem 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--roast);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.marquee-track {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: max-content;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: scroll 30s linear infinite;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.marquee-item {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 0 3rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.65rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.3em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(196,122,43,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.marquee-item span { color: var(--caramel); margin-right: 3rem; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes scroll {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>from { transform: translateX(0); }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>to <span class="Apple-converted-space">  </span>{ transform: translateX(-50%); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── TIPS SECTION ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tips-grid {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tip-card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(196,122,43,0.12);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tip-icon {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tip-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.1rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tip-body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── FOOTER ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>footer {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid rgba(196,122,43,0.15);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 3rem 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer-logo {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Playfair Display', serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--caramel);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer-note {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.15em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245,230,204,0.25);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ── SCROLLBAR ── */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>::-webkit-scrollbar { width: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>::-webkit-scrollbar-track { background: var(--espresso); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>::-webkit-scrollbar-thumb { background: var(--caramel); border-radius: 2px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 640px) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>nav { padding: 1rem 1.25rem; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.nav-links { display: none; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.modal { padding: 2rem 1.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- NAV --&gt;</p>
+<p class="p1">&lt;nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="nav-logo"&gt;☕ The Coffee Codex&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;ul class="nav-links"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;li&gt;&lt;a href="#recipes"&gt;Recipes&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;li&gt;&lt;a href="#tips"&gt;Tips&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/ul&gt;</p>
+<p class="p1">&lt;/nav&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- HERO --&gt;</p>
+<p class="p1">&lt;section class="hero"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hero-ring"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hero-ring"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hero-ring"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hero-ring"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;p class="hero-eyebrow"&gt;A brewer's companion&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1 class="hero-title"&gt;The Coffee&lt;em&gt;Codex&lt;/em&gt;&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;p class="hero-subtitle"&gt;Artisan recipes, brewing wisdom, and the quiet ritual of a perfect cup.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hero-scroll"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hero-scroll-line"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scroll</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- MARQUEE --&gt;</p>
+<p class="p1">&lt;div class="marquee-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="marquee-track" id="marqueeTrack"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- RECIPES --&gt;</p>
+<p class="p1">&lt;section id="recipes"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="section-number"&gt;01 —&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2 class="section-title"&gt;Recipes&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="section-rule"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="recipe-grid" id="recipeGrid"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- TIPS --&gt;</p>
+<p class="p1">&lt;section id="tips" style="background: var(--roast);"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="section-number"&gt;02 —&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2 class="section-title"&gt;Brewer's Notes&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="section-rule"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="tips-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tip-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tip-icon"&gt;⚖️&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="tip-title"&gt;Grind Fresh&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tip-body"&gt;Grind beans no more than 30 minutes before brewing. Ground coffee loses 60% of its aromatics within 15 minutes of exposure to air.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tip-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tip-icon"&gt;🌡️&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="tip-title"&gt;Water Temperature&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tip-body"&gt;Ideal brewing temperature is 90–96 °C (195–205 °F). Boiling water scorches the grounds; too cool and you'll under-extract, leaving it sour and weak.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tip-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tip-icon"&gt;💧&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="tip-title"&gt;Water Quality&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tip-body"&gt;Filtered water with a TDS of 75–150 ppm is optimal. Tap water with chlorine masks subtle flavours; distilled water produces flat, lifeless coffee.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tip-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tip-icon"&gt;⏱️&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="tip-title"&gt;Extraction Time&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tip-body"&gt;Espresso: 25–30 seconds. Pour-over: 3–4 minutes. French press: 4 minutes. Timing is the difference between a balanced cup and a bitter or sour one.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tip-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tip-icon"&gt;🫙&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="tip-title"&gt;Storage&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tip-body"&gt;Store whole beans in an airtight, opaque container at room temperature. Avoid the fridge — moisture and odour absorption ruin flavour profiles.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tip-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tip-icon"&gt;🔢&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="tip-title"&gt;The Golden Ratio&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tip-body"&gt;Start with 1 gram of coffee per 15 grams of water and adjust to taste. Precision scales are a brewer's most valuable tool after the grinder.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- FOOTER --&gt;</p>
+<p class="p1">&lt;footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="footer-logo"&gt;The Coffee Codex&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;p class="footer-note"&gt;Crafted with care · Brewed with intention&lt;/p&gt;</p>
+<p class="p1">&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- MODAL --&gt;</p>
+<p class="p1">&lt;div class="modal-overlay" id="modalOverlay"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="modal" id="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="modal-close" id="modalClose"&gt;✕&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="modal-tag" id="modalTag"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2 class="modal-title" id="modalTitle"&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="modal-desc" id="modalDesc"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="modal-section-title"&gt;Ingredients&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;ul class="modal-ingredients" id="modalIngredients"&gt;&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="modal-section-title"&gt;Method&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;ol class="modal-steps" id="modalSteps"&gt;&lt;/ol&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="modal-tip" id="modalTip"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">const recipes = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tag: "Espresso · Classic",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name: "Classic Espresso",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>desc: "The foundation of all espresso drinks. A concentrated, velvety shot with crema that whispers of chocolate and stone fruit.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>time: "5 min",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>difficulty: "Medium",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>servings: "1 shot",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ingredients: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Finely ground espresso beans", amount: "18 g" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Filtered water", amount: "36 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Water temperature", amount: "93 °C" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>steps: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Preheat your espresso machine and portafilter for at least 15 minutes.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Grind 18 g of beans to a fine, slightly finer than table salt consistency.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Distribute grounds evenly in the portafilter and tamp with firm, level pressure (about 15 kg).",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Lock the portafilter and begin extraction immediately.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Pull a 36 ml shot in 25–30 seconds. The flow should start as drops, then become a thin ribbon.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Serve immediately in a pre-warmed demitasse cup.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tip: "Barista note: If the shot pulls too fast (&lt; 20 s), grind finer. Too slow (&gt; 35 s), grind coarser. Small adjustments make a big difference."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tag: "Pour-Over · Delicate",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name: "Chemex Pour-Over",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>desc: "A ceremonial, slow-brewed cup prized for its clarity and brightness. The thick bonded filters trap all oils, yielding a clean, tea-like body.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>time: "8 min",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>difficulty: "Medium",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>servings: "2 cups",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ingredients: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Medium-coarse ground coffee", amount: "42 g" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Filtered water (just off boil)", amount: "700 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>steps: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Fold and place a Chemex paper filter in the vessel, rinse with hot water, then discard the rinse water.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Add 42 g of medium-coarse ground coffee to the filter.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Begin the bloom: pour 84 ml of water (2× the coffee weight) evenly over the grounds. Wait 45 seconds.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Continue pouring in slow, concentric circles, keeping the water level consistent. Aim to finish pouring by 3:30.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Allow the last of the water to drain through completely (~4 min total).",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Remove and dispose of the filter. Gently swirl the Chemex before serving.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tip: "Barista note: The bloom releases CO₂ trapped in fresh coffee. A vigorous bloom means your beans are fresh — a good sign."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tag: "Cold Brew · Smooth",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name: "Cold Brew Concentrate",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>desc: "Steeped low and slow for 18 hours, cold brew delivers a remarkably smooth, chocolatey concentrate with almost no bitterness.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>time: "18 hrs",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>difficulty: "Easy",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>servings: "6 cups",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ingredients: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Coarsely ground coffee", amount: "150 g" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Cold filtered water", amount: "700 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>steps: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Combine coarsely ground coffee and cold water in a large jar or pitcher. Stir to ensure all grounds are saturated.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Cover loosely and steep at room temperature for 12–18 hours (longer = stronger).",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Strain through a fine-mesh sieve lined with a paper filter or cheesecloth. This may take 15–20 minutes.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Transfer the concentrate to a sealed jar. It keeps refrigerated for up to 2 weeks.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"To serve, dilute 1:1 with cold water or milk over ice. Adjust ratio to taste.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tip: "Barista note: Cold brew concentrate is extremely versatile — use it as a base for coffee cocktails, add to smoothies, or pour over vanilla ice cream."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tag: "Milk · Indulgent",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name: "Flat White",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>desc: "An Australian ritual — a double ristretto nestled in velvety microfoam. Smaller than a latte, more intense, with every sip a perfect balance.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>time: "7 min",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>difficulty: "Hard",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>servings: "1 cup",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ingredients: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Ristretto (short espresso)", amount: "40 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Whole milk", amount: "120 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>steps: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Pull a double ristretto (15–20 ml per shot) using 18–20 g of coffee. The ristretto should be syrupy and sweet.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Steam 120 ml of cold whole milk. Submerge the steam wand just below the surface to incorporate air for the first 3 seconds, then drop it deeper to heat and texturise.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Target temperature: 60–65 °C (140–150 °F). The milk should look like liquid satin — glossy with no visible bubbles.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Tap and swirl the milk jug firmly on the counter to burst any large bubbles.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Pour from a low height in a steady stream, using a slight side-to-side motion to create latte art if desired.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tip: "Barista note: The flat white's magic lives in the 3:1 ratio of milk to espresso — any more milk and you have a latte; any less and it becomes a macchiato."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tag: "Iced · Refreshing",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name: "Japanese Iced Coffee",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>desc: "Brewed hot directly over ice, this method captures the aromatic volatiles lost in cold brew while delivering a bright, complex chilled cup.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>time: "6 min",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>difficulty: "Easy",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>servings: "1 cup",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ingredients: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Medium-fine ground coffee", amount: "22 g" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Hot water (93 °C)", amount: "180 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Ice cubes", amount: "120 g" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>steps: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Place 120 g of ice directly in your serving vessel or in a pour-over carafe.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Set a dripper and filter on top. Rinse the filter, add 22 g of coffee.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Bloom with 44 ml of hot water for 30 seconds.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Pour the remaining 136 ml in a steady spiral over the next 2 minutes.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"As the hot coffee drips, it immediately chills on the ice, locking in volatile aromatics.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Once all water has drained, serve immediately over additional ice if desired.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tip: "Barista note: Use brighter, lighter roasts for this method — their citrus and floral notes sing especially beautifully when chilled."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tag: "Spiced · Ceremonial",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>name: "Turkish Coffee",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>desc: "An ancient, unfiltered tradition served with grounds in the cup. Rich, foamy, and deeply aromatic — best sipped slowly, preferably with good company.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>time: "10 min",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>difficulty: "Medium",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>servings: "2 cups",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ingredients: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Extra-finely ground Turkish coffee", amount: "2 heaped tsp" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Cold water", amount: "200 ml" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Sugar (optional)", amount: "1–2 tsp" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name: "Ground cardamom", amount: "¼ tsp" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>steps: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Combine cold water, coffee, sugar (if using), and cardamom in a cezve (small copper or brass pot).",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Stir once to combine. Do not stir again once you begin heating.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Heat over low flame. As the coffee warms, a dark foam will rise — when it nears the rim, remove from heat.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Spoon some of the foam into each cup. Return the cezve to the heat until it rises again, then pour.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Allow grounds to settle for 2 minutes before drinking.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tip: "Barista note: Traditionally, Turkish coffee is served with a glass of water to cleanse the palate first. The grounds left in the cup were once used to tell fortunes."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">const marqueeItems = ["Espresso", "Pour-Over", "Cold Brew", "Aeropress", "French Press", "Moka Pot", "Siphon", "Chemex", "V60", "Clever Dripper"];</p>
+<p class="p2"><br></p>
+<p class="p1">// Build marquee</p>
+<p class="p1">const track = document.getElementById('marqueeTrack');</p>
+<p class="p1">const full = [...marqueeItems, ...marqueeItems];</p>
+<p class="p1">track.innerHTML = full.map(i =&gt; `&lt;span class="marquee-item"&gt;&lt;span&gt;✦&lt;/span&gt;${i}&lt;/span&gt;`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1">// Build recipe grid</p>
+<p class="p1">const grid = document.getElementById('recipeGrid');</p>
+<p class="p1">recipes.forEach((r, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const card = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>card.className = 'recipe-card';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>card.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="recipe-tag"&gt;${r.tag}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3 class="recipe-name"&gt;${r.name}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="recipe-desc"&gt;${r.desc}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="recipe-meta"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;⏱ ${r.time}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;◈ ${r.difficulty}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;⌀ ${r.servings}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="recipe-arrow"&gt;→&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>card.addEventListener('click', () =&gt; openModal(i));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>grid.appendChild(card);</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">// Modal</p>
+<p class="p1">const overlay = document.getElementById('modalOverlay');</p>
+<p class="p1">const modalClose = document.getElementById('modalClose');</p>
+<p class="p2"><br></p>
+<p class="p1">function openModal(i) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const r = recipes[i];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modalTag').textContent = r.tag;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modalTitle').textContent = r.name;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modalDesc').textContent = r.desc;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modalIngredients').innerHTML = r.ingredients</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.map(ing =&gt; `&lt;li&gt;${ing.name}&lt;span&gt;${ing.amount}&lt;/span&gt;&lt;/li&gt;`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modalSteps').innerHTML = r.steps</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.map(s =&gt; `&lt;li&gt;${s}&lt;/li&gt;`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modalTip').textContent = r.tip;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overlay.classList.add('open');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.body.style.overflow = 'hidden';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function closeModal() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overlay.classList.remove('open');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.body.style.overflow = '';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">modalClose.addEventListener('click', closeModal);</p>
+<p class="p1">overlay.addEventListener('click', e =&gt; { if (e.target === overlay) closeModal(); });</p>
+<p class="p1">document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') closeModal(); });</p>
+<p class="p2"><br></p>
+<p class="p1">// Scroll reveal</p>
+<p class="p1">const observer = new IntersectionObserver(entries =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>entries.forEach(e =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (e.isIntersecting) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>e.target.style.opacity = '1';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>e.target.style.transform = 'translateY(0)';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}, { threshold: 0.1 });</p>
+<p class="p2"><br></p>
+<p class="p1">document.querySelectorAll('.recipe-card, .tip-card').forEach((el, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.style.opacity = '0';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.style.transform = 'translateY(20px)';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.style.transition = `opacity 0.6s ${i * 0.07}s ease, transform 0.6s ${i * 0.07}s ease`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>observer.observe(el);</p>
+<p class="p1">});</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
